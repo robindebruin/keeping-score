@@ -5,7 +5,7 @@ import ScoreList from './components/score-list/score-list';
 
 
 
-const highScoreList = [{name: 'Robin', score: 99},{name: 'Piet', score: 22}];
+const highScoreList = [{name: 'Robin', score: 22},{name: 'Piet', score: 1}, {name: 'Gert', score: 100000}, {name: 'Sjaak', score: 999}];
 
 
 class App extends Component {

@@ -2,22 +2,17 @@ import React, { Component } from 'react'
 
 export default class ScoreList extends Component {
 
-    constructor(props) {
-        super()
-        console.log(' props', props);
-
-    }
-
     render() {
-
-        const score = this.props.scores.map((scoreEntry, i) => {
-            return (<tr class="row" key={i}><td class="col">{i}</td> <td class="col">{scoreEntry.name}</td><td class="col">{scoreEntry.score}</td></tr>)
+        const score = this.props.scores
+        .sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+        .map((scoreEntry, i) => {
+            return (<tr className="row" key={i}><td className="col">{i+1}</td><td className="col">{scoreEntry.name}</td><td className="col">{scoreEntry.score}</td></tr>)
         })
 
         return (
-            <table class="table"> 
+            <table className="table"> 
                 <tbody>
-                    <tr class="row"><th class="col">#</th><th class="col">Name</th><th class="col">Score</th></tr>
+                    <tr className="row"><th className="col">#</th><th className="col">Name</th><th className="col">Score</th></tr>
                     {score}
                 </tbody>
             </table>
