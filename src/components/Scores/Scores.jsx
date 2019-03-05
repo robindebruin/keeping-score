@@ -16,6 +16,7 @@ export default class Scores extends Component {
             highScoreList: [...prevState.highScoreList, e]
         }))
     }
+    
     render() {
         return (
             <div>
