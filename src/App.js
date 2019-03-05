@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ScoreList from './components/score-list/score-list';
+import AddScoreEntry from './components/add-score-entry/add-score-entry';
 
 
 
@@ -38,6 +39,9 @@ class App extends Component {
         </header> */}
     
         <ScoreList scores={highScoreList}></ScoreList>
+
+        <br/>
+        <AddScoreEntry></AddScoreEntry>
       </div>
     );
   }
