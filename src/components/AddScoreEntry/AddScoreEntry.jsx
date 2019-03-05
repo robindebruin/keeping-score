@@ -5,7 +5,7 @@ export default class AddScoreEntry extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fullName: '',
+            name: '',
             score: ''
         }
     }
@@ -15,11 +15,7 @@ export default class AddScoreEntry extends Component {
     }
 
     handleSubmit = event => {
-        console.log('submit form', this.state);
-        this.setState({
-            fullName: '',
-            score: ''            
-        })
+        this.props.addEntry(this.state)
         event.preventDefault();
     }
 
@@ -29,14 +25,14 @@ export default class AddScoreEntry extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label>
-                            Name: 
-                        <input type="text" name="fullName" value={this.state.fullName} onChange={this.handleChange} />
+                            Name:
+                        <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
                         </label>
                     </div>
                     <div className="form-group">
                         <label>
-                            Score: 
-                        <input type="text" name="score" value={this.state.score} onChange={this.handleChange} />
+                            Score:
+                        <input type="number" name="score" value={this.state.score} onChange={this.handleChange} />
                         </label>
                     </div>
                     <button className="btn btn-primary" type="submit">submit</button>

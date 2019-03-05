@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ScoreList from './components/score-list/score-list';
-import AddScoreEntry from './components/add-score-entry/add-score-entry';
-
-
-
-const highScoreList = [{name: 'Robin', score: 22},{name: 'Piet', score: 1}, {name: 'Gert', score: 100000}, {name: 'Sjaak', score: 999}];
+import Scores from './components/Scores/Scores';
 
 
 class App extends Component {
-
-// constructor(){}
-
 
   render() {
     return (
@@ -37,11 +29,8 @@ class App extends Component {
             Learn React
           </a>
         </header> */}
-    
-        <ScoreList scores={highScoreList}></ScoreList>
 
-        <br/>
-        <AddScoreEntry></AddScoreEntry>
+        <Scores></Scores>
       </div>
     );
   }
