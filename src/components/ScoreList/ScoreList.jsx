@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 export default class ScoreList extends Component {
 
+
     render() {
         const score = this.props.scores
             .sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
