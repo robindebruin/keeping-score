@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DeleteScoreEntry from '../DeleteScoreEntry/DeleteScoreEntry';
 
 export default class ScoreList extends Component {
 
@@ -7,7 +8,15 @@ export default class ScoreList extends Component {
         const score = this.props.scores
             .sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
             .map((scoreEntry, i) => {
-                return (<tr className="row" key={i}><td className="col">{i + 1}</td><td className="col">{scoreEntry.name}</td><td className="col">{scoreEntry.score}</td></tr>)
+                return (
+                <tr className="row" key={i}>
+                    <td className="col">{i + 1}</td>
+                    <td className="col">{scoreEntry.name}</td>
+                    <td className="col">{scoreEntry.score}</td>
+                    <td>{scoreEntry.id}</td>
+                    <td><DeleteScoreEntry id={scoreEntry.id}></DeleteScoreEntry></td>
+                </tr>
+                )
             })
 
         return (
