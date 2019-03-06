@@ -12,7 +12,9 @@ export default class DeleteScoreEntry extends Component {
             data: {
                 id: objIdToDelete
             }
-        });
+        }).then(() => {
+            // get db
+        })
     }
 
     render() {

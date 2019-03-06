@@ -47,19 +47,39 @@ export default class Scores extends Component {
             id: idToBeAdded,
             score: data.score,
             name: data.name
-        }).then(res => {
+        }).then(() => {
             this.getDataFromDb();
         })        
     };
 
-    handleNameEdit = id => {
+    handleNameEdit = (id, contentForDB) => {        
         var x = [...this.state.dbcollection]
         x.find(el => el.id === id).editable = true
-
         this.setState({
             dbcollection: x
         })
+
+        if (contentForDB) {
+            this.updateDB(id, contentForDB)
+        }
     }
+
+
+    updateDB = (idToUpdate, updateToApply) => {
+        let objIdToUpdate = null;
+        this.state.dbcollection.forEach(dat => {
+            if (dat.id == idToUpdate) {
+                objIdToUpdate = dat._id;
+            }
+        });
+
+        Axios.post("api/updateData", {
+            _id: objIdToUpdate,
+            update: { name: updateToApply }
+        }).then(() => {
+            this.getDataFromDb();
+        })      
+    };
 
 
     render() {
