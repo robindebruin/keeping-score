@@ -8,93 +8,64 @@ export default class Scores extends Component {
     constructor() {
         super()
         this.state = {
-            data: [],
+            dbcollection: [],
             id: 0,
-            intervalIsSet: false,
             idToDelete: null,
             idToUpdate: null,
             objectToUpdate: null
         }
     }
 
-    handleChange = e => {
-        this.setState(prevState => ({
-            highScoreList: [...prevState.highScoreList, e]
-        }))
-        this.putDataToDB(e);
-    }
-    
     componentDidMount = () => {
         this.getDataFromDb();
-        
-        if (!this.state.intervalIsSet) {
-            let interval = setInterval(this.getDataFromDb, 10000);
-            this.setState({ intervalIsSet: interval });            
-        }        
     }
 
-    componentWillUnmount = () => {
-        if (this.state.intervalIsSet) {
-            clearInterval(this.state.intervalIsSet);
-            this.setState({ intervalIsSet: null });
-        }
+    handleChange = e => {        
+        this.putDataToDB(e);
     }
 
     getDataFromDb = () => {
         fetch("api/getData")
             .then(data => data.json())
-            .then(res => { this.setState({ data: res.data }) })
+            .then(res => {
+                res.data.forEach(element => {
+                    element.editable = false;
+                });
+                this.setState({ dbcollection: res.data })
+            })
             .catch(err => console.log('err', err))
     };
 
     putDataToDB = data => {
-        let currentIds = this.state.data.map(data => data.id);
+        let currentIds = this.state.dbcollection.map(data => data.id);
         let idToBeAdded = 0;
         while (currentIds.includes(idToBeAdded)) {
-          ++idToBeAdded;
+            ++idToBeAdded;
         }
-    
+
         Axios.post("api/putData", {
-          id: idToBeAdded,
-          score: data.score,
-          name: data.name
-        });
-      };
+            id: idToBeAdded,
+            score: data.score,
+            name: data.name
+        }).then(res => {
+            this.getDataFromDb();
+        })        
+    };
 
+    handleNameEdit = id => {
+        var x = [...this.state.dbcollection]
+        x.find(el => el.id === id).editable = true
 
-    // deleteFromDB = idTodelete => {
-    //     let objIdToDelete = null;
-    //     this.state.data.forEach(dat => {
-    //         if (dat.id == idTodelete) {
-    //             objIdToDelete = dat._id;
-    //         }
-    //     });
+        this.setState({
+            dbcollection: x
+        })
+    }
 
-    //     Axios.delete("api/deleteData", {
-    //         data: {
-    //             id: objIdToDelete
-    //         }
-    //     });
-    // };
-
-    // updateDB = (idToUpdate, updateToApply) => {
-    //     let objIdToUpdate = null;
-    //     this.state.data.forEach(dat => {
-    //         if (dat.id == idToUpdate) {
-    //             objIdToUpdate = dat._id;
-    //         }
-    //     });
-
-    //     Axios.post("api/updateData", {
-    //         id: objIdToUpdate,
-    //         update: { message: updateToApply }
-    //     });
-    // };
 
     render() {
         return (
             <div>
-                <ScoreList scores={this.state.data}></ScoreList>
+                <ScoreList scores={this.state.dbcollection} onNameEdit={this.handleNameEdit}></ScoreList>
                 <AddScoreEntry addEntry={this.handleChange}></AddScoreEntry>
             </div>
         )
