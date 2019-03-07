@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
+import DatabaseCommunication from '../DBCommunication/DBCommunication';
 
 export default class DeleteScoreEntry extends Component {   
 
@@ -8,11 +9,7 @@ export default class DeleteScoreEntry extends Component {
     }
 
     deleteFromDB = objIdToDelete => {
-        Axios.delete("api/deleteData", {
-            data: {
-                id: objIdToDelete
-            }
-        }).then(() => {
+        DatabaseCommunication.deleteDoc(objIdToDelete).then(() => {
             // get db
         })
     }
