@@ -42,7 +42,6 @@ export default class ScoreList extends Component {
 
                         <td><button className="button" onClick={() => this.makeNameEditable(scoreEntry._id)}>edit</button></td>
                         <td><button className="button" onClick={() => this.sendEdit(scoreEntry._id, this.state.updateNamePh)}>send</button></td>
-
                         
                     </tr>
                 )
