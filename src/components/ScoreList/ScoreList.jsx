@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import DeleteScoreEntry from '../DeleteScoreEntry/DeleteScoreEntry';
-import ChangeEntryName from '../ChangeEntryName/ChangeEntryName';
 
 export default class ScoreList extends Component {
     constructor(props) {
@@ -28,21 +27,27 @@ export default class ScoreList extends Component {
         const scoreList = this.props.scores
             .sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
             .map((scoreEntry, i) => {
+                console.log(scoreEntry);
+                
                 return (
                     <tr className="row" key={i}>
                         <td className="col">{i + 1}</td>
                         <td className="col">
-                            {scoreEntry.editable ?
-                                <input type="text" onChange={this.onNameChange} value={this.state.nameChange} placeholder="edit it" />
-                                : scoreEntry.name
+                            {
+                                scoreEntry.editable ?
+                                    <input type="text" onChange={this.onNameChange} value={this.state.nameChange} placeholder={this.state.nameChange} /> :
+                                    <span>{scoreEntry.name}</span>
                             }
                         </td>
                         <td className="col">{scoreEntry.score}</td>
                         <td><DeleteScoreEntry id={scoreEntry._id}></DeleteScoreEntry></td>
-
-                        <td><button className="button" onClick={() => this.makeNameEditable(scoreEntry._id)}>edit</button></td>
-                        <td><button className="button" onClick={() => this.sendEdit(scoreEntry._id, this.state.updateNamePh)}>send</button></td>
-                        
+                        <td>
+                            {
+                                scoreEntry.editable ?
+                                    <button className="button" onClick={() => this.sendEdit(scoreEntry._id, this.state.updateNamePh)}>send</button> :
+                                    <button className="button" onClick={() => this.makeNameEditable(scoreEntry._id)}>edit</button>
+                            }
+                        </td>
                     </tr>
                 )
             })

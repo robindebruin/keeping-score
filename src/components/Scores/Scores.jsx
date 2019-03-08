@@ -28,7 +28,7 @@ export default class Scores extends Component {
         while (currentIds.includes(idToBeAdded)) {
             ++idToBeAdded;
         }
-        DatabaseCommunication.putDataToDB(idToBeAdded, data).then(() => this.getDataFromDb())        
+        DatabaseCommunication.putDataToDB(idToBeAdded, data).then(() => this.getDataFromDb());   
     };
 
     handleNameEdit = (id, contentForDB = null) => {        
