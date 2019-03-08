@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import DeleteScoreEntry from '../DeleteScoreEntry/DeleteScoreEntry';
-import EditScore from '../EditScore/EditScore';
+import PropTypes from 'prop-types';
 
 export default class ScoreList extends Component {
     constructor(props) {
@@ -67,4 +67,9 @@ export default class ScoreList extends Component {
             </table>
         )
     }
+}
+
+ScoreList.propTypes = {
+    scores: PropTypes.array,
+    onNameEdit: PropTypes.func
 }

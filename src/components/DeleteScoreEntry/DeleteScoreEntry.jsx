@@ -9,7 +9,7 @@ export default class DeleteScoreEntry extends Component {
 
     deleteFromDB = objIdToDelete => {
         DatabaseCommunication.deleteDoc(objIdToDelete).then(() => {
-            // get db
+            // lift up new list to parent
         })
     }
 

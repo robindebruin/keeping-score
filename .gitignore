@@ -1,1 +1,6 @@
 /node_modules
+node_modules/prop-types/prop-types.js
+node_modules/prop-types/package.json
+node_modules/prop-types/factoryWithTypeCheckers.js
+node_modules/prop-types/CHANGELOG.md
+node_modules/@babel/plugin-proposal-class-properties/package.json
