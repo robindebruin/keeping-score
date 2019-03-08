@@ -42,8 +42,18 @@ export default class Scores extends Component {
         }
     };
 
+    setEditFlag = res => {
+        res.data.forEach(element => {
+            element.editable = false;
+        });        
+        return res.data;
+    }
+
     updateDB = (idToUpdate, updateToApply) => {
-        DatabaseCommunication.updateDB(idToUpdate, updateToApply).then(() => this.getDataFromDb());              
+        DatabaseCommunication.updateDB(idToUpdate, updateToApply)
+        .then(res => this.setState({
+            dbcollection: this.setEditFlag(res.data)
+        }));              
     };
 
     render() {

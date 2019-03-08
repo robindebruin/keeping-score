@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import DeleteScoreEntry from '../DeleteScoreEntry/DeleteScoreEntry';
+import EditScore from '../EditScore/EditScore';
 
 export default class ScoreList extends Component {
     constructor(props) {
@@ -26,27 +27,32 @@ export default class ScoreList extends Component {
     render() {
         const scoreList = this.props.scores
             .sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
-            .map((scoreEntry, i) => {
-                console.log(scoreEntry);
+            .map((scoreEntry, i) => {      
+                
+                let editButton;
+                if (scoreEntry.editable) {
+                    editButton = <button className="button" onClick={() => this.sendEdit(scoreEntry._id, this.state.updateNamePh)}>send</button> 
+                } else {
+                    editButton = <button className="button" onClick={() => this.makeNameEditable(scoreEntry._id)}>edit</button>
+                }
+
+                let nameField;
+                if (scoreEntry.editable) {
+                    nameField = <input type="text" onChange={this.onNameChange} value={this.state.nameChange} placeholder={this.state.nameChange} /> 
+                } else {
+                    nameField = <span>{scoreEntry.name}</span>
+                }
                 
                 return (
                     <tr className="row" key={i}>
                         <td className="col">{i + 1}</td>
                         <td className="col">
-                            {
-                                scoreEntry.editable ?
-                                    <input type="text" onChange={this.onNameChange} value={this.state.nameChange} placeholder={this.state.nameChange} /> :
-                                    <span>{scoreEntry.name}</span>
-                            }
+                            {nameField}
                         </td>
                         <td className="col">{scoreEntry.score}</td>
                         <td><DeleteScoreEntry id={scoreEntry._id}></DeleteScoreEntry></td>
                         <td>
-                            {
-                                scoreEntry.editable ?
-                                    <button className="button" onClick={() => this.sendEdit(scoreEntry._id, this.state.updateNamePh)}>send</button> :
-                                    <button className="button" onClick={() => this.makeNameEditable(scoreEntry._id)}>edit</button>
-                            }
+                            {editButton}
                         </td>
                     </tr>
                 )
